@@ -10,11 +10,11 @@ npm run docs:build
 cd docs/.vuepress/dist
 
 # if you are deploying to a custom domain
-echo 'griftland-informatica-lesmateriaal.thijsdh.nl' > CNAME
+echo 'lesmateriaal.griftland.info' > CNAME
 
 git init
 git add -A
 git commit -m 'deploy'
-git push -f git@github.com:thijsdh/griftland-informatica-lesmateriaal.git master:gh-pages
+git push -f git@github.com:jaccognodde/griftland-informatica-lesmateriaal.git master:gh-pages
 
 cd -
