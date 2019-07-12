@@ -2,7 +2,7 @@
 
 Er zijn verschillende manieren waarop recursie kan worden toegepast. De vorm waarmee het basisidee van recursie werd beschreven bestond uit het kleiner maken van een probleem door het uitvoeren van eenvoudige handelingen en daarna vervolgens de rest van het probleem oplossen (op exact dezelfde manier).
 
-```
+``` {1,7}
 **Los op (probleem)**:
 
 Als het probleem in één keer kan worden opgelost
@@ -16,7 +16,7 @@ Om de recursie te benadrukken zijn zowel de naam van de subroutine als de recurs
 
 Een voorbeeld hiervan is het sorteren van een rij getallen. Bij deze oplossing bestaat het sorteren uit de kleinste van de rij vooraan zetten en dan de rest van de rij verder sorteren (op precies dezelfde manier).
 
-```
+``` {1,9}
 **Sorteer (getallen, vooraan, achteraan)**:
 
 Als vooraan<achteraan dan
@@ -33,7 +33,7 @@ De vorm van recursie wordt *staartrecursie* genoemd; de recursieve aanroep is de
 
 Een andere vorm van recursie bestaat uit eerst een deel van het probleem op te lossen en daarna met behulp van dit deel van de oplossing de totale oplossing van het probleem maken door het uitvoeren van eenvoudige handelingen:
 
-```
+``` {1,6}
 **Los op (probleem)**:
 
 Als het probleem in één keer kan worden opgelost
@@ -59,7 +59,7 @@ Als vooraan < achteraan
 
 Een derde vorm van recursie is een vorm waarin het probleem wordt opgeknipt in kleinere deelproblemen. Het oplossen van de deelproblemen gebeurt dan weer op exact dezelfde manier:
 
-```
+``` {1,6,7}
 **Los op (probleem)**:
 
 Als het probleem in één keer kan worden opgelost
@@ -72,7 +72,7 @@ Anders
  
 Deze vorm van recursie is een veel gebruikte techniek om getallen te sorteren. Een voorbeeld hiervan is MergeSort. Bij deze sorteermethode wordt eerst het linkerdeel van een rij getallen gesorteerd en het rechter deel van de rij. Om de totale rij gesorteerd te krijgen hoeven de getallen in het linkerdeel en het rechterdeel alleen nog maar te worden samengevoegd.
 
-```
+``` {1,5,6}
 **Sorteer (getallen, vooraan, achteraan)**:
 
 Als vooraan < aantal
