@@ -41,6 +41,7 @@
     <Page
       v-else
       :sidebar-items="sidebarItems"
+      :key="$router.currentRoute.path"
     >
       <slot
         name="page-top"
@@ -69,7 +70,7 @@ import { resolveSidebarItems } from './util'
 export default {
   components: { Home, Page, Sidebar, Navbar, SWUpdatePopup },
 
-  data () {
+  data() {
     return {
       isSidebarOpen: false,
       swUpdateEvent: null
@@ -77,7 +78,7 @@ export default {
   },
 
   computed: {
-    shouldShowNavbar () {
+    shouldShowNavbar() {
       const { themeConfig } = this.$site
       const { frontmatter } = this.$page
       if (
@@ -94,7 +95,7 @@ export default {
       )
     },
 
-    shouldShowSidebar () {
+    shouldShowSidebar() {
       const { frontmatter } = this.$page
       return (
         !frontmatter.layout &&
@@ -104,7 +105,7 @@ export default {
       )
     },
 
-    sidebarItems () {
+    sidebarItems() {
       return resolveSidebarItems(
         this.$page,
         this.$route,
@@ -113,7 +114,7 @@ export default {
       )
     },
 
-    pageClasses () {
+    pageClasses() {
       const userPageClass = this.$page.frontmatter.pageClass
       return [
         {
@@ -126,7 +127,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     window.addEventListener('scroll', this.onScroll)
 
     // configure progress bar
@@ -148,19 +149,19 @@ export default {
   },
 
   methods: {
-    toggleSidebar (to) {
+    toggleSidebar(to) {
       this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
     },
 
     // side swipe
-    onTouchStart (e) {
+    onTouchStart(e) {
       this.touchStart = {
         x: e.changedTouches[0].clientX,
         y: e.changedTouches[0].clientY
       }
     },
 
-    onTouchEnd (e) {
+    onTouchEnd(e) {
       const dx = e.changedTouches[0].clientX - this.touchStart.x
       const dy = e.changedTouches[0].clientY - this.touchStart.y
       if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
@@ -172,7 +173,7 @@ export default {
       }
     },
 
-    onSWUpdated (e) {
+    onSWUpdated(e) {
       this.swUpdateEvent = e
     }
   }

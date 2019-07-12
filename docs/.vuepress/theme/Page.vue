@@ -66,6 +66,11 @@ import { resolvePage, normalize, outboundRE, endingSlashRE } from "./util";
 
 export default {
   props: ["sidebarItems"],
+  data() {
+    return {
+      currentHeader: null
+    }
+  },
 
   computed: {
     lastUpdated() {
@@ -163,6 +168,56 @@ export default {
         (docsDir ? "/" + docsDir.replace(endingSlashRE, "") : "") +
         path
       );
+    },
+    collapseAll(level = 2) {
+      for (const header of document.querySelectorAll('h' + level)) {
+        let currentElement = header.nextElementSibling;
+        while (currentElement) {
+          if (currentElement.tagName.startsWith('H') && parseInt(currentElement.tagName.substring(1)) <= level) break;
+          currentElement.classList.add('hidden');
+          currentElement = currentElement.nextElementSibling;
+        }
+      }
+    },
+    toggleHeader(header, toLevel = 6) {
+      if (this.currentHeader === header) {
+        window.location.hash = '';
+        return;
+      }
+
+      let currentElement = header.nextElementSibling;
+      while (currentElement) {
+        if (currentElement.tagName.startsWith('H') && parseInt(currentElement.tagName.substring(1)) <= toLevel) break;
+        currentElement.classList.remove('hidden');
+        currentElement = currentElement.nextElementSibling;
+      }
+
+      this.currentHeader = header;
+      window.location.hash = `#${header.getAttribute('id')}`;
+    }
+  },
+  mounted() {
+    this.collapseAll();
+    if (document.location.hash.length) {
+      const header = document.querySelector(document.location.hash);
+      if (header) this.toggleHeader(header);
+      window.location.hash = window.location.hash;
+    }
+
+    for (const link of document.querySelectorAll('a[href*="\#"]')) {
+      link.addEventListener('click', e => {
+        let id = link.getAttribute('href').split('#')[1];
+        const header = document.querySelector(`#${id}`);
+        this.collapseAll();
+        this.toggleHeader(header);
+      });
+    }
+
+    for (const header of document.querySelectorAll('h2, h3, h4, h5, h6')) {
+      header.addEventListener('click', e => {
+        this.collapseAll();
+        this.toggleHeader(header);
+      });
     }
   }
 };
@@ -196,6 +251,14 @@ function find(page, items, offset) {
 <style lang="stylus">
 @import './styles/config.styl';
 @require './styles/wrapper.styl';
+
+.hidden {
+  display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  cursor: pointer;
+}
 
 .page {
   padding-bottom: 2rem;
