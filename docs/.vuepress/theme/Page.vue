@@ -204,21 +204,24 @@ export default {
       window.location.hash = window.location.hash;
     }
 
-    for (const link of document.querySelectorAll('a[href*="\#"]')) {
-      link.addEventListener('click', e => {
-        let id = link.getAttribute('href').split('#')[1];
-        const header = document.querySelector(`#${id}`);
-        this.collapseAll();
-        this.toggleHeader(header);
-      });
-    }
+    // Hacky workaround to make sure the sidebar links are loaded...
+    setTimeout(() => {
+      for (const link of document.querySelectorAll('a[href*="\#"]')) {
+        link.addEventListener('click', e => {
+          let id = link.getAttribute('href').split('#')[1];
+          const header = document.querySelector(`#${id}`);
+          this.collapseAll();
+          this.toggleHeader(header);
+        });
+      }
 
-    for (const header of document.querySelectorAll('h2, h3, h4, h5, h6')) {
-      header.addEventListener('click', e => {
-        this.collapseAll();
-        this.toggleHeader(header);
-      });
-    }
+      for (const header of document.querySelectorAll('h2, h3, h4, h5, h6')) {
+        header.addEventListener('click', e => {
+          this.collapseAll();
+          this.toggleHeader(header);
+        });
+      }
+    }, 0);
   }
 };
 
